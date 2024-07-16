@@ -20,4 +20,6 @@ jobs:
 
     - name: Run script to get gold value
       run: |
+        git config --local user.enail "{{secrets.MY_EMAIL}}"
+        git config --local user.enail "{{secrets.MY_NAME}}"
         python get_gold_value.py
