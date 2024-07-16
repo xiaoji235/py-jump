@@ -25,4 +25,3 @@ jobs:
     - name: Save gold value to file
       run: |
         echo "${{ steps.extract-gold.outputs.gold_value }}" > gold.txt # 将gold值写入gold.txt文件
-
