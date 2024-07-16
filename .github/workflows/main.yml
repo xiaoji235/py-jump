@@ -12,7 +12,7 @@ jobs:
 
     - name: Fetch JSON data
       run: |
-        JSON_DATA=$(curl -s '${{ secrets.GOLD_URL_SECRET }}')  # 替换 YOUR_JSON_URL 为实际的 JSON URL
+        JSON_DATA=${{ secrets.GOLD_URL_SECRET }} # 替换 YOUR_JSON_URL 为实际的 JSON URL
         echo "$JSON_DATA" > data.json  # 将 JSON 数据保存到 data.json 文件
 
     - name: Extract gold value for rank 1
