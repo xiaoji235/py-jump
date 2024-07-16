@@ -9,6 +9,7 @@ data_dict = json.loads(json_data)
 
 # 获取rank为1的gold值
 gold_value = data_dict['data']['rank'][1]['gold']
+gold_value += 1
 
 # 将gold值输出到文件
 with open('gold_value.txt', 'w') as file:
