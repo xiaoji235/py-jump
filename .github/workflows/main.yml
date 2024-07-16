@@ -28,3 +28,4 @@ jobs:
         git config --local user.email "{{secrets.MY_EMAIL}}"
         git config --local user.name "{{secrets.MY_NAME}}"
         python get_gold_value.py
+        python json.py
