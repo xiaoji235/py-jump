@@ -1,5 +1,6 @@
 import json
 import requests
+from json import JSONDecodeError
 
 # 假设这是你的GitHub仓库中文件的URL
 url_json = 'https://raw.githubusercontent.com/xiaoji235/py-jump/main/data.json'
