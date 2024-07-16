@@ -22,3 +22,21 @@ print(f"Gold值为: {gold_value}")
 os.system('git add gold_value.txt')
 os.system('git commit -m "Update gold value"')
 os.system('git push')
+
+#######gold值输出######
+
+# 假设你有以下JSON字符串
+json_str = '{"gameId":"10005","gold":"xxx","hasPass":true,"gameLogId":"1813145167239188480"}'
+
+# 将JSON字符串解析为字典
+data = json.loads(json_str)
+
+# 将新的gold值转回为字符串，并更新字典
+data['gold'] = str(gold_value)
+
+# 如果需要将更新后的字典转回JSON字符串
+new_json_str = json.dumps(data)
+
+os.system('git add gold。json')
+os.system('git commit -m "Update gold json"')
+os.system('git push')
