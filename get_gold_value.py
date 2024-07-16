@@ -37,6 +37,6 @@ data['gold'] = str(gold_value)
 # 如果需要将更新后的字典转回JSON字符串
 new_json_str = json.dumps(data)
 
-os.system('git add gold。json')
+os.system('git add gold.json')
 os.system('git commit -m "Update gold json"')
 os.system('git push')
