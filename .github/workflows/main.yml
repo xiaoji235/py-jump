@@ -1,27 +1,25 @@
-name: Fetch and Store Gold Value
+name: Extract and Store Gold Value
 
 on:
-  workflow_dispatch: # 手动触发workflow
+  workflow_dispatch:  # 手动触发workflow
 
 jobs:
-  fetch-and-store-gold:
+  extract-and-store-gold:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2 # 检出你的仓库代码到工作环境
-      
-    - name: Fetch JSON data from URL
-      id: fetch-json
-      run: |
-        JSON_DATA=$(curl -s '${{ secrets.GOLD_URL_SECRET }}"') # 替换YOUR_JSON_URL为实际的URL
-        echo "$JSON_DATA" > data.json # 将JSON数据存储到文件中，以便后续处理
+      uses: actions/checkout@v2  # 检出仓库代码到工作环境
 
-    - name: Extract gold value of rank 1
-      id: extract-gold
+    - name: Fetch JSON data
       run: |
-        GOLD_VALUE=$(jq '.rank[] | select(.rank == 1) | .gold' data.json)
-        echo "::set-output name=gold_value::$GOLD_VALUE" # 设置gold值为输出变量
+        JSON_DATA=$(curl -s '${{ secrets.GOLD_URL_SECRET }}')  # 替换 YOUR_JSON_URL 为实际的 JSON URL
+        echo "$JSON_DATA" > data.json  # 将 JSON 数据保存到 data.json 文件
+
+    - name: Extract gold value for rank 1
+      run: |
+        GOLD_VALUE=$(jq '.data.rank[] | select(.rank == 1) | .gold' data.json)
+        echo "Gold value for rank 1: $GOLD_VALUE"
 
     - name: Save gold value to file
       run: |
-        echo "${{ steps.extract-gold.outputs.gold_value }}" > gold.txt # 将gold值写入gold.txt文件
+        echo "${GOLD_VALUE}" > gold.txt  # 将提取到的 gold 值写入 gold.txt 文件
