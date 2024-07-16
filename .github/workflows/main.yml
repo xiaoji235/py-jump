@@ -27,6 +27,7 @@ jobs:
     - name: Save updated gold value to file
       run: |
         echo "${GOLD_VALUE}" > gold.txt
+        cat gold.txt
 
     - name: Commit and push changes
       run: |
