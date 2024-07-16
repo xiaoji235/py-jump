@@ -22,12 +22,12 @@ jobs:
 
     - name: Save gold value to file
       run: |
+        git add gold.txt
         echo "${GOLD_VALUE}" > gold.txt  # 将提取到的 gold 值写入 gold.txt 文件
 
     - name: Commit and push changes
       run: |
         git config --local user.email "${{ secrets.MY_EMAIL }}"
         git config --local user.name "${{ secrets.MY_NAME }}"
-        git add gold.txt
         git commit -m "Add gold value from JSON"
         git push origin HEAD:main
