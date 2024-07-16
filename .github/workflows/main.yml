@@ -18,7 +18,7 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Run script to get gold value
+    - name: pip install requests
       run: |
         pip install requests
 
