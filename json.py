@@ -7,7 +7,12 @@ url_gold_value = 'https://raw.githubusercontent.com/xiaoji235/py-jump/main/gold_
 
 # 使用requests库从GitHub获取data.json内容
 response_json = requests.get(url_json)
-data = response_json.json()
+
+try:
+    data = response_json.json()
+except json.decoder.JSONDecodeError as e:
+    print("Error decoding JSON from data.json:", e)
+    exit()
 
 # 使用requests库从GitHub获取gold_value内容
 response_gold_value = requests.get(url_gold_value)
