@@ -23,4 +23,4 @@ jobs:
         npm install axios
 
     - name: Run JavaScript script
-      run: node path_to_your_js_script.js
+      run: node update_json.js
