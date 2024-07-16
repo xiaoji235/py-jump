@@ -20,4 +20,4 @@ jobs:
 
     - name: Run script to get gold value
       run: |
-        python auto.py
+        python get_gold_value.py
