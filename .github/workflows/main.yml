@@ -30,4 +30,5 @@ jobs:
         git config --local user.name "${{ secrets.MY_NAME }}"
         git add gold.txt
         git commit -m "Add gold value from JSON"
-        git push origin HEAD:main
+        git pull
+        git push
