@@ -26,6 +26,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
+        git config --local user.email "${{ secrets.MY_EMAIL }}"
+        git config --local user.name "${{ secrets.MY_NAME }}"
         git add gold.txt
-        git commit --allow-empty -m "Add gold value from JSON anonymously"
-        git push
+        git commit -m "Add gold value from JSON"
+        git push origin HEAD:main
