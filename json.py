@@ -1,7 +1,6 @@
 import json
 import subprocess
-from json.decoder
-import JSONDecodeError
+from json.decoder import JSONDecodeError
 
 # JSON文件名
 json_filename = 'data.json'
@@ -12,7 +11,7 @@ text_filename = 'gold_value.txt'
 try:
     with open(json_filename, 'r') as json_file:
         data = json.load(json_file)
-except json.decoder.JSONDecodeError as e:
+except JSONDecodeError as e:
     print(f"Error reading the JSON file: {e}")
     # 打印出问题的文件内容
     with open(json_filename, 'r') as json_file:
