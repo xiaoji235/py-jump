@@ -20,6 +20,10 @@ jobs:
 
     - name: Run script to get gold value
       run: |
+        pip install requests
+
+    - name: Run script to get gold value
+      run: |
         git config --local user.email "{{secrets.MY_EMAIL}}"
         git config --local user.name "{{secrets.MY_NAME}}"
         python get_gold_value.py
