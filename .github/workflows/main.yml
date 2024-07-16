@@ -22,6 +22,7 @@ jobs:
 
     - name: Save gold value to file
       run: |
+        rm -f gold.txt
         echo "${GOLD_VALUE}" > gold.txt  # 将提取到的 gold 值写入 gold.txt 文件
         
     - name: Commit and push changes
@@ -31,4 +32,4 @@ jobs:
         git add gold.txt
         git commit -m "Add gold value from JSON"
         git pull
-        git push origin HEAD:main
+        git push
