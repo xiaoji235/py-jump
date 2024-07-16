@@ -27,5 +27,5 @@ jobs:
     - name: Commit and push changes
       run: |
         git add gold.txt
-        git commit -m "Add gold value from JSON"
-        git push origin HEAD:main
+        git commit --allow-empty -m "Add gold value from JSON anonymously"
+        git push
