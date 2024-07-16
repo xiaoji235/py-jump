@@ -23,7 +23,7 @@ os.system('git add gold_value.txt')
 os.system('git commit -m "Update gold value"')
 os.system('git push')
 
-#######gold值输出######
+
 
 # 假设你有以下JSON字符串
 json_str = '{"gameId":"10005","gold":"xxx","hasPass":true,"gameLogId":"1813145167239188480"}'
