@@ -1,26 +1,35 @@
-name: Update Data
+name: Update JSON with Gold Value
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'gold_value.txt'
 
 jobs:
-  update_data:
+  update-gold-value:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - name: Read gold value from txt
+        id: read-gold
+        run: |
+          gold_value=$(cat gold_value.txt)
+          echo "::set-output name=gold_value::$gold_value"
 
-    - name: Install dependencies
-      run: |
-        npm install axios
+      - name: Read JSON file and update gold value
+        uses: joshuamiller/jq-action@v1
+        with:
+          jq: '.gold = "${{ steps.read-gold.outputs.gold_value }}"'
+          input: game_data.json
+          output: updated_game_data.json
 
-    - name: Run JavaScript script
-      run: node update_json.js
+      - name: Commit and push if changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add updated_game_data.json
+          git commit -m "Update gold value in JSON" || exit 0  # No changes to commit will exit with 1
+          git push
