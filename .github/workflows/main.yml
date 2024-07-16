@@ -27,14 +27,12 @@ jobs:
     - name: Save updated gold value to file
       run: |
         echo "${GOLD_VALUE}" > gold.txt
-        cat gold.txt
 
     - name: Commit and push changes
       run: |
         git config --local user.email "${{ secrets.MY_EMAIL }}"
         git config --local user.name "${{ secrets.MY_NAME }}"
-        git add data.json
-        git add gold.txt
-        git commit -m "Update gold value from JSON"--allow-empty
+        git add -f gold.txt
+        git commit -m "Update gold value from JSON" --allow-empty
         git pull
         git push
