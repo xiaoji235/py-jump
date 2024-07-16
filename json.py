@@ -1,6 +1,6 @@
 import json
 import requests
-import JSONDecodeError
+from json.decoder import JSONDecodeError
 
 # 假设这是你的GitHub仓库中文件的URL
 url_json = 'https://raw.githubusercontent.com/xiaoji235/py-jump/main/data.json'
@@ -11,7 +11,7 @@ response_json = requests.get(url_json)
 
 try:
     data = json.loads(response_json.text)
-except json.decoder.JSONDecodeError as e:
+except JSONDecodeError as e:
     print("Error decoding JSON from data.json:", e)
     exit()
 
