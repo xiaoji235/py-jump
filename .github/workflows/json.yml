@@ -13,23 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Read gold value from txt
-        id: read-gold
+      - name: Read gold value from txt and update JSON
         run: |
           gold_value=$(cat gold_value.txt)
-          echo "::set-output name=gold_value::$gold_value"
-
-      - name: Read JSON file and update gold value
-        uses: joshuamiller/jq-action@v1
-        with:
-          jq: '.gold = "${{ steps.read-gold.outputs.gold_value }}"'
-          input: game_data.json
-          output: updated_game_data.json
+          jq --arg gold_value "$gold_value" '.gold = $gold_value' game_data.json > data.json
 
       - name: Commit and push if changes
         run: |
           git config --local user.email "{{secrets.MY_EMAIL}}"
           git config --local user.name "{{secrets.MY_NAME}}"
-          git add updated_game_data.json
-          git commit -m "Update gold value in JSON" || exit 0  # No changes to commit will exit with 1
-          git push
+          git add data.json
+          git diff --staged --quiet || (git commit -m "Update gold value in JSON" && git push)
