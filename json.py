@@ -1,5 +1,7 @@
 import json
 import subprocess
+from json.decoder
+import JSONDecodeError
 
 # JSON文件名
 json_filename = 'data.json'
