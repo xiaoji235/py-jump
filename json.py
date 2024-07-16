@@ -1,31 +1,36 @@
 import json
 import os
 import requests
+import subprocess
 
-# 假设你有以下JSON字符串
-json_str = '{"gameId":"10005","gold":"xxx","hasPass":true,"gameLogId":"1813145167239188480"}'
+# JSON文件名
+json_filename = 'data.json'
+# 文本文件名
+text_filename = 'gold_value.txt'
 
-# 将JSON字符串解析为字典
-data = json.loads(json_str)
+# 读取JSON文件
+with open(json_filename, 'r') as json_file:
+    data = json.load(json_file)
 
-# 将新的gold值转回为字符串，并更新字典
-data['gold'] = str(gold_value)
+# 读取gold_value.txt文件来获取gold值
+with open(text_filename, 'r') as txt_file:
+    gold_value = txt_file.read().strip()
 
-# 如果需要将更新后的字典转回JSON字符串
-new_json_str = json.dumps(data)
+# 更新JSON数据中的gold字段
+data['gold'] = gold_value
 
-# 将新的JSON数据保存到文件
-with open('updated_data.json', 'w') as file:
-    file.write(new_json_str)
+# 将更新后的JSON数据写回文件
+with open(json_filename, 'w') as json_file:
+    json.dump(data, json_file, indent=4)
 
-# 提交新的JSON文件到GitHub仓库
-url = 'https://api.github.com/repos/xiaoji235/py-jump/contents/updated_data.json'
-token = os.getenv('GITHUB_TOKEN')
-headers = {'Authorization': f'token {token}'}
-payload = {
-    'message': 'Update gold value in JSON',
-    'content': new_json_str
-}
-response = requests.put(url, headers=headers, json=payload)
-
-print(response.text)
+# 使用Git命令推送更改到GitHub仓库
+try:
+    # 添加更改到Git
+    subprocess.run(['git', 'add', json_filename], check=True)
+    # 创建提交
+    subprocess.run(['git', 'commit', '-m', 'Update gold value in JSON'], check=True)
+    # 推送到远程仓库
+    subprocess.run(['git', 'push'], check=True)
+    print("Changes pushed to GitHub repository successfully.")
+except subprocess.CalledProcessError as e:
+    print("An error occurred while pushing changes to GitHub:", e)
