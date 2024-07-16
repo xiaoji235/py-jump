@@ -20,6 +20,10 @@ jobs:
         GOLD_VALUE=$(jq -r '.data.rank[] | select(.rank == 1) | .gold' data.json)
         echo "Gold value for rank 1: $GOLD_VALUE"
 
+    - name: Remove existing gold.txt
+      run: |
+        rm -f gold.txt
+
     - name: Save updated gold value to file
       run: |
         echo "${GOLD_VALUE}" > gold.txt
