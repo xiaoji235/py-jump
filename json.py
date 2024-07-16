@@ -10,7 +10,7 @@ url_gold_value = 'https://raw.githubusercontent.com/xiaoji235/py-jump/main/gold_
 response_json = requests.get(url_json)
 
 try:
-    data = response_json.json()
+    data = json.loads(response_json.text)
 except json.decoder.JSONDecodeError as e:
     print("Error decoding JSON from data.json:", e)
     exit()
