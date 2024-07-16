@@ -32,8 +32,8 @@ jobs:
       run: |
         git config --local user.email "${{ secrets.MY_EMAIL }}"
         git config --local user.name "${{ secrets.MY_NAME }}"
+        git add data.json
         git add gold.txt
         git commit -m "Update gold value from JSON"
-        git push -u origin master
         git pull
         git push
