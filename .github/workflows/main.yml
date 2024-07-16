@@ -31,4 +31,4 @@ jobs:
         git add gold.txt
         git commit -m "Add gold value from JSON"
         git pull
-        git push
+        git push origin HEAD:main
