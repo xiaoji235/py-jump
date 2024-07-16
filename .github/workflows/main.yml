@@ -12,7 +12,7 @@ jobs:
 
     - name: Fetch JSON data
       run: |
-        JSON_DATA=curl 'https://eastroc.lokwork.com/eastroc-api/web/charmingLeap/getRankByPage?gameId=10005&pageNum=1&pageSize=10'  -H 'Host: eastroc.lokwork.com'  -H 'Accept: */*'  -H 'Sec-Fetch-Site: same-origin'  -H 'Accept-Encoding: gzip, deflate, br'  -H 'Accept-Language: zh-CN,zh-Hans;q=0.9'  -H 'Sec-Fetch-Mode: cors'  -H 'Content-Type: application/json;'  -H 'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.33(0x18002129) NetType/WIFI Language/zh_CN miniProgram/wxa16478da92a9df9b'  -H 'Connection: keep-alive'  -H 'Referer: https://eastroc.lokwork.com/leap/index.html?gameId=10005'  -H 'Cookie: VP_SESSION_ID=22f3fc83276749339d28c8c79eaee7c0; Hm_lvt_42cc1880011538681c48bfa0eb27dee2=1720968508'  -H 'Sec-Fetch-Dest: empty'   # 替换 YOUR_JSON_URL 为实际的 JSON URL
+        JSON_DATA=${{ secrets.GOLD_URL_SECRET }}   # 替换 YOUR_JSON_URL 为实际的 JSON URL
         echo "$JSON_DATA" > data.json  # 将 JSON 数据保存到 data.json 文件
 
     - name: Extract gold value for rank 1
