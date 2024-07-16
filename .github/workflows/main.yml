@@ -1,35 +1,38 @@
-name: Extract and Store Gold Value
+name: Update Gold Value
 
 on:
-  workflow_dispatch:  # 手动触发workflow
+  workflow_dispatch
 
 jobs:
-  extract-and-store-gold:
+  update-gold-value:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # 检出仓库代码到工作环境
+      uses: actions/checkout@v2
 
     - name: Fetch JSON data
       run: |
         JSON_DATA=$(curl -s '${{ secrets.GOLD_URL_SECRET }}')   # 替换 YOUR_JSON_URL 为实际的 JSON URL
-        echo "$JSON_DATA" > data.json  # 将 JSON 数据保存到 data.json 文件
+        echo "$JSON_DATA" > data.json
 
     - name: Extract gold value for rank 1
       run: |
-        GOLD_VALUE=$(jq '.data.rank[] | select(.rank == 1) | .gold' data.json)
+        GOLD_VALUE=$(jq -r '.data.rank[] | select(.rank == 1) | .gold' data.json)
         echo "Gold value for rank 1: $GOLD_VALUE"
 
-    - name: Save gold value to file
+    - name: Remove existing gold.txt
       run: |
         rm -f gold.txt
-        echo "${GOLD_VALUE}" > gold.txt  # 将提取到的 gold 值写入 gold.txt 文件
-        
+
+    - name: Save updated gold value to file
+      run: |
+        echo "${GOLD_VALUE}" > gold.txt
+
     - name: Commit and push changes
       run: |
         git config --local user.email "${{ secrets.MY_EMAIL }}"
         git config --local user.name "${{ secrets.MY_NAME }}"
         git add gold.txt
-        git commit -m "Add gold value from JSON"
+        git commit -m "Update gold value from JSON"
         git pull
         git push
